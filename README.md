@@ -96,17 +96,37 @@ vs. N for each case. Take a screenshot of your graph and put them here by modify
 it to this repository.
 
 Bubble Sort, Merge Sort, Quick Sort, and Heap Sort running time (already sorted):
-![image](https://github.com/user-attachments/assets/76f103c8-8c02-4bec-9966-99568f2effb6)
+![image](https://github.com/user-attachments/assets/f34ffa6a-267f-42f8-8d9b-2261590f19fc)
+Merge Sort is O(log(N)) but the data varies. Heap Sort seems to also be O(log(N)) but also has 
+fluctuations. Bubble Sort has O(N) running time. Sorted Quick Sort has a runtime of O(log(N)).
+Bubble Sort has the biggest running time. Having more data would render better results. 
 
 Bubble Sort, Merge Sort, Quick Sort, and Heap Sort running time (shuffled):
+![image](https://github.com/user-attachments/assets/bad2faf4-825d-4407-b9e0-cf91bfc5bcb3)
+
+Merge Sort, Quick Sort, and Heap Sort have runtimes of O(log(N)). Bubble Sort has a runtime of
+O(n^2). Bubble Sort has the biggest runtime and Heap Sort has the smallest. As shown, there
+are a lot of fluctuatons in the data so not eveyrthing will be accurate. 
 
 Bubble Sort, Merge Sort, Quick Sort, and Heap Sort running time (reversed):
+![image](https://github.com/user-attachments/assets/f09cfe41-3cd3-4ff4-85e9-cc352381c3a6)
+BubbleSort has an O(N) runtime. Merge Sort, Quick Sort, and Heap Sort have a O(log(n)) running time.
+Bubble Sort has the largest runtime and Heap Sort has the smallest. There are fluctuations in the data. 
 
 Bubble Sort and Odd-Even Transposition Sort comparison (already sorted):
+![image](https://github.com/user-attachments/assets/0aeeffc1-8e65-4118-a230-7bbec18b8634)
+Bubble Sort has an O(N) runtime. Odd-Even Transpoisiton Sort has a constant runtime and Bubble 
+Sort has a larger runtime. 
 
 Bubble Sort and Odd-Even Transposition Sort comparison (shuffled):
+![image](https://github.com/user-attachments/assets/5f443a04-dcf2-4efe-8305-6147e5ca2047)
+Bubble SOrt has a O(n^2) runtime and Odd-Even Transposition Sort has a O(n^2) runtime. Bubble
+sort has a larger runtime. 
 
 Bubble Sort and Odd-Even Transposition Sort comparison (reversed):
+![image](https://github.com/user-attachments/assets/ab9400ca-87ba-4ffe-937d-690d976dd020)
+Bubble Sort has a runtime of O(N^2) and Odd-Even Transposition has O(n^2). Bubble sort
+has a larger runtime. 
 
 ## Submission:
 
