@@ -8,7 +8,6 @@
  * @date: November 14, 2024
  ***********************************************************************/
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -17,119 +16,75 @@ import java.io.FileInputStream;
 import java.util.Scanner;
 import java.util.Collections;
 
-
 public class Proj3 {
 
-
-    // Sorting Method declarations
     // Merge Sort, sorts the given arraylist with bounds as lt and rt.
     // Sorting Method declarations
     //Merge Sort sorts the given arraylist with the bounds being the left and right parameters.
     public static <T extends Comparable> void mergeSort(ArrayList<T> a, int left, int right) {
         // Finish Me
-        //Sort with lengths >= 2
+        //lengths >= 2
         if (left + 1 < right) {
-            //Get the midpoint of the Arraylist
-            int mid = (left + right) / 2;//left + (right - left) /2;
-
-
-
-
+            //Get the mid of the Arraylist
+            int mid = (left + right) / 2;
             //Sort the first and second halves of the list.
             mergeSort(a, left, mid);
-            mergeSort(a, mid, right); //HAD +1 ON MID
+            mergeSort(a, mid, right);
             //Merge the halves after they have been sorted.
             merge(a, left, mid, right);
         }
     }
 
-
-
-
     //This method is called from mergeSort(). It merges two different arraylists with bounds.
     public static <T extends Comparable> void merge(ArrayList<T> a, int left, int mid, int right) {
         // Finish Me
-        //The sizes of the two arrays being merged.
-        //System.out.println(left + " " + mid + " " + right);
-
-
-        //CHECK WHICH SIDE GETS MORE WHEN ODD
-        //int n1 = mid-1;// - left + 1;
-        //int n2 = right - mid;
-
-
-
-
         //Temp arrays:
-        //lTemp is the array list that has the values of a from the left index to mid
-        //rTemp is the array list that has the values of a from mid to the right index
-        ArrayList<T> lTemp = new ArrayList<T>(a.subList(left, mid));
-        ArrayList<T> rTemp = new ArrayList<T>(a.subList(mid, right));
-
-
-
+        //leftTemp is the array list that has the values of a from the left index to mid
+        //rightTemp is the array list that has the values of a from mid to the right index
+        ArrayList<T> leftTemp = new ArrayList<T>(a.subList(left, mid));
+        ArrayList<T> rightTemp = new ArrayList<T>(a.subList(mid, right));
 
         //Copy the data into the temp arrays.
-      /*for (int i = 0; i < n1; i++) {
-          System.out.println("in");
-          lTemp.set(i, a.get(i+left));
-      }
-      System.out.println(lTemp);
-      for (int j = 0; j < n2; j++)
-          rTemp.set(j, a.get(mid+j));
-      */
-
-
-
-
-        int i = 0, j = 0;
-
-
-
-
+        int i = 0;
+        int j = 0;
         // Initial index of merged subarray array
         int k = left;
-        while (i < lTemp.size() && j < rTemp.size()) {
-            if (lTemp.get(i).compareTo(rTemp.get(j)) <= 0) {
-                a.set(k, lTemp.get(i));
+        while (i < leftTemp.size() && j < rightTemp.size()) {
+            if (leftTemp.get(i).compareTo(rightTemp.get(j)) <= 0) {
+                a.set(k, leftTemp.get(i));
                 i++;
             } else {
-                a.set(k, rTemp.get(j));
+                a.set(k, rightTemp.get(j));
                 j++;
             }
             k++;
         }
-        // Copy remaining elements of lTemp
-        while (i < lTemp.size()) {
-            a.set(k, lTemp.get(i));
+        // Copy the leftover elements of leftTemp
+        while (i < leftTemp.size()) {
+            a.set(k, leftTemp.get(i));
             i++;
             k++;
         }
-        // Copy remaining elements of rTemp
-        while (j < rTemp.size()) {
-            a.set(k, rTemp.get(j));
+        // Copy the leftover elements of rightTemp
+        while (j < rightTemp.size()) {
+            a.set(k, rightTemp.get(j));
             j++;
             k++;
         }
-
-
-
-
     }
 
 
-
-
     // Quick Sort
+    //Sorts the arraylist by dividing and conquer method
+    //Repeatedly partitioning the list into smaller lists around a pivot
+    //then recursively sort those sublists
     public static <T extends Comparable> void quickSort(ArrayList<T> a, int left, int right) {
         // Finish Me
         //Base case. ArrayList is sorted.
         //Base case
-
         if (left >= right) {
             return;
         }
-
 
         //Partition the data in the ArrayList.
         //The index is the index of the low partition's last element.
@@ -141,36 +96,38 @@ public class Proj3 {
     }
 
 
-
-
+    //Partition method is called by quick sort method
+    //All elements <= pivot are moved to the left
+    //All elements greater than the pivot are moved to the right
+    //The pivot is in the correct position after, index of pivot can be used
+    //to sort the sublists of left and right.
     public static <T extends Comparable> int partition(ArrayList<T> a, int left, int right) {
         // Finish Me
         //Pick middle element as pivot.
-        int center = (left + right) / 2;
+        int middle = (left + right) / 2;
 
 
         //Compare the first, last, and middle elements and order them correctly.
-        if (a.get(center).compareTo(a.get(left)) < 0) {
-            swap(a, left, center);
+        if (a.get(middle).compareTo(a.get(left)) < 0) {
+            swap(a, left, middle);
         }
         if (a.get(right - 1).compareTo(a.get(left)) < 0) {
             swap(a, left, right - 1);
         }
-        if (a.get(right - 1).compareTo(a.get(center)) < 0) {
-            swap(a, center, right - 1);
+        if (a.get(right - 1).compareTo(a.get(middle)) < 0) {
+            swap(a, middle, right - 1);
         }
 
         //The median is the pivot. Place it at the last index.
-        swap(a, center, right - 1);
+        swap(a, middle, right - 1);
 
         //Set pivot.
         T pivot = a.get(right - 1);
 
-        //Assign the range to i and j.
+        //the range is set to i and j.
         int i = left;
         int j = right - 2;
 
-        //System.out.println("quick3");
         //System.out.println(a);
         //Loop until i is less than j.
         while (i < j) {
@@ -178,8 +135,6 @@ public class Proj3 {
             while ((i >= 0 && i < 100) && (a.get(i).compareTo(pivot) <= 0)) {
                 i += 1;
             }
-            //System.out.println(j);
-            //System.out.println(a.size());
             //Decrement right index while pivot is less than a.get(j).
             while ((j >= 0) && (pivot.compareTo(a.get(j)) <= 0)) {
                 j -= 1;
@@ -194,9 +149,8 @@ public class Proj3 {
                 break;
             }
         }
-        //System.out.println(a);
-        //System.out.println("quick4");
-        //Restore pivot.
+
+        //Restore the pivot.
         if(i < 100 && i >= 0) {
             swap(a, i, right - 1);
         }
@@ -211,6 +165,8 @@ public class Proj3 {
     }
 
     // Heap Sort
+    //Sorts and arraylist by building a max binary heap
+    //and it also deletes the nodes.
     public static <T extends Comparable> void heapSort(ArrayList<T> a, int left, int right) {
         // Finish Me
         //Build a max heap.
@@ -223,46 +179,49 @@ public class Proj3 {
         }
 
         for (int i = right - 1; i >= left; i--) {
-            //swap max element with the last element
-            swap(a, left, i);
+            swap(a, left, i);//swap max element with the last element
             //heapify the heap
             //heapify(a, left, i);
             heapify(a, left, i);
         }
     }
 
-    //
+    //heapify is called by heapSort method
+    //Makes the binary tree a max binary heap
     public static <T extends Comparable> void heapify(ArrayList<T> a, int left, int right) {
         // Finish Me
         //Root node
-        int maxNode = left;
+        int max = left;//max node
         int leftChild = (2 * left) + 1;
         int rightChild = (2 * left) + 2;
 
 
-        if (leftChild < right && a.get(leftChild).compareTo(a.get(maxNode)) > 0) {
-            maxNode = leftChild;
+        if (leftChild < right && a.get(leftChild).compareTo(a.get(max)) > 0) {
+            max = leftChild;
         }
 
         //Check if right child is larger than the maxNode
-        if (rightChild < right && a.get(rightChild).compareTo(a.get(maxNode)) > 0) {
-            maxNode = rightChild;
+        if (rightChild < right && a.get(rightChild).compareTo(a.get(max)) > 0) {
+            max = rightChild;
         }
 
         //If the maxNode is not the root, swap and heapify.
-        if (maxNode != left) {
-            swap(a, left, maxNode);
+        if (max != left) {
+            swap(a, left, max);
             //Heapify the subtree with the maxNode as the root.
-            heapify(a, maxNode, right);
+            heapify(a, max, right);
         }
     }
 
     // Bubble Sort
+    //counts numeber of comparisons
+    //Stops when no swaps are needed
+    //Compares adjacent elements
     public static <T extends Comparable> int bubbleSort(ArrayList<T> a, int size) {
         // Finish Me
-        int count = 0; //counter for num comparisons
+        int count = 0; //counter for the num of comparisons
         boolean swapped = true; //flag for swapped
-        //End loop when all elements sorted.
+        //End the loop when all the elements have been sorted.
         while (swapped) {
             swapped = false; //initialize swap to false
             //Loop through list
@@ -280,9 +239,9 @@ public class Proj3 {
 
 
     // Odd-Even Transposition Sort
+    //Performs odd and even sorting, returns comparrisons
     public static <T extends Comparable> int transpositionSort(ArrayList<T> a, int size) {
         // Finish Me
-
         int count = 0; //count is number of comparisons.
         boolean isSorted = false; //Checks if list is sorted.
         //While list is not sorted, continue.
@@ -292,33 +251,25 @@ public class Proj3 {
             for (int i = 0; i < size - 1; i += 2) {
                 //For the even-odd pair if the current el is greater than the next el
                 //swap them.
-                //if(c.compare(a.get(i), a.get(i + 1)) > 0) {
                 if (a.get(i).compareTo(a.get(i + 1)) > 0) {
                     swap(a, i, i + 1);
                     isSorted = false;
                 }
-                count++;
             }
-            //If not sorted yet, increment the number of swaps
-          /*if(isSorted == false) {
-              count++;
-          }*/
+            count++;
+            //If not sorted yet, increment the number of comparisons
             isSorted = true;
             //Increment by 2 to compare only even even-odd pairs.
             for (int i = 1; i < size - 1; i += 2) {
                 //for the odd-even pair if the current el is greater than the next el
                 //swap them
-                //if(c.compare(a.get(i), a.get(i + 1)) > 0) {
                 if (a.get(i).compareTo(a.get(i + 1)) > 0) {
                     swap(a, i, i + 1);
                     isSorted = false;
                 }
-                count++;
             }
-            //Increment if there was at least one swap.
-          /*if(isSorted == false) {
-              count++;
-          }*/
+            //Increment if there was at least one comparison.
+            count++;
         }
         return count; //Return the total swaps.
     }
@@ -333,11 +284,13 @@ public class Proj3 {
       an integer corresponding to the number of lines of data to be stored in your
       ArrayList. If there is more or less than three command line argument, the program
       exits and outputs an error message.*/
+
         String filename = ""; //file name.
-        String sortAlg = ""; //The sorting algorithm.
+        String sortAlg = ""; //sorting algorithm.
         int numLines = 0; //The number of lines to store and sort.
+
         try {
-            //Assign values.
+            //Assign the values.
             filename = args[0];
             sortAlg = args[1];
             numLines = Integer.parseInt(args[2]);
@@ -346,7 +299,7 @@ public class Proj3 {
             System.exit(1);
         }
 
-        ArrayList<RemoteWork> origList = new ArrayList<RemoteWork>();   // original list
+        ArrayList<RemoteWork> orgList = new ArrayList<RemoteWork>();   // original list
         ArrayList<RemoteWork> quickList = new ArrayList<RemoteWork>();   // list to be sorted via quick sort
         ArrayList<RemoteWork> bubbleList = new ArrayList<RemoteWork>();   // list to be sorted via bubble sort
         ArrayList<RemoteWork> transpositionList = new ArrayList<RemoteWork>();   // list to be sorted via transposition sort
@@ -380,7 +333,7 @@ public class Proj3 {
                 r = new RemoteWork(Integer.parseInt(parts[0]), parts[1],
                         Integer.parseInt(parts[2]), Integer.parseInt(parts[3]),
                         Integer.parseInt(parts[4]));
-                origList.add(r);
+                orgList.add(r);
                 count++;
             }
         }
@@ -396,86 +349,85 @@ public class Proj3 {
             }
         }
         // Fill lists.
-        for (int i = 0; i < origList.size(); i++) {
-            quickList.add(origList.get(i));
-            bubbleList.add(origList.get(i));
-            transpositionList.add(origList.get(i));
-            heapList.add(origList.get(i));
-            mergeList.add(origList.get(i));
+        for (int i = 0; i < orgList.size(); i++) {
+            quickList.add(orgList.get(i));
+            bubbleList.add(orgList.get(i));
+            transpositionList.add(orgList.get(i));
+            heapList.add(orgList.get(i));
+            mergeList.add(orgList.get(i));
         }
 
-        FileWriter out = null;
-        FileWriter out2 = null;
+        FileWriter output1 = null;
+        FileWriter output2 = null;
         try {
             //Create or open the file to write to it.
-            out = new FileWriter("analysis.txt", true);
-            out2 = new FileWriter("sorted.txt");
+            output1 = new FileWriter("analysis.txt", true);
+            output2 = new FileWriter("sorted.txt");
 
             //To determine execution time, declare start and time.
             long start;
             long time;
-            //printList(origList);
-            //System.out.println();
             //Check for which sorting algorithm to perform. Call the appropriate method with the correct range.
             //Output the execution time and/or number of swaps.
-            //out.write("Sort Method,Num Lines,Time(ns),Num Comparisons\n");
-            //System.out.println("Num Lines   Time(ns)    Num Comparisons(Optional)");
-            //System.out.println(quickList.size());
-            //System.out.println(numLines);
-            //System.out.println(quickList);
             if (sortAlg.equals("quick")) {
                 //Collections.sort(quickList, Collections.reverseOrder())
-                Collections.sort(quickList);
+                Collections.shuffle(quickList);
                 start = System.nanoTime();
                 quickSort(quickList, 0, numLines);
 
                 time = System.nanoTime();
-                System.out.println("Quick Sort: Number of Lines=" + numLines + ", Time(ns)=" + (time - start));
-                out.write("Quick Sort," + numLines + "," + (time - start) + ",\n");
-                out2.write(quickList.toString());
+                System.out.println("Quick Sort: Number of Lines = " + numLines + ", Time = " + (time - start));
+                output1.write("Quick Sort," + numLines + "," + (time - start) + ",\n");
+                output2.write(quickList.toString());
             }
+            //out.write("Quick Sort," + numLines + "," + ",\n");
+            //sortAlg = "bubble";
             else if (sortAlg.equals("bubble")) {
                 //Collections.sort(bubbleList, Collections.reverseOrder());
-                Collections.sort(bubbleList);
+                Collections.shuffle(bubbleList);
                 start = System.nanoTime();
                 int bubbleCount = bubbleSort(bubbleList, numLines);
                 //printList(bubbleList);
                 time = System.nanoTime();
-                System.out.println("Bubble Sort: Number of Lines=" + numLines + ", Time(ns)=" + (time - start) + ", Number of Comparisons=" + bubbleCount);
-                out.write("Bubble Sort," + numLines + "," + (time - start) + "," + bubbleCount + "\n");
-                out2.write(bubbleList.toString());
+                System.out.println("Bubble Sort: Number of Lines = " + numLines + ", Time = " + (time - start) + ", Number of Comparisons = " + bubbleCount);
+                output1.write("Bubble Sort," + numLines + "," + (time - start) + "," + bubbleCount + "\n");
+                output2.write(bubbleList.toString());
             }
+            //sortAlg = "transposition";
             else if (sortAlg.equals("transposition")) {
                 //Collections.sort(transpositionList, Collections.reverseOrder());
-                Collections.sort(transpositionList);
+                Collections.shuffle(transpositionList);
                 int transpositionCount = transpositionSort(transpositionList, numLines);
                 //printList(transpositionList);
-                System.out.println("Transposition Sort: Number of Lines=" + numLines + ", Number of Comparisons=" + transpositionCount);
-                out.write("Transposition Sort," + numLines + ",," + transpositionCount + "\n");
-                out2.write(transpositionList.toString());
+                System.out.println("Transposition Sort: Number of Lines = " + numLines + ", Number of Comparisons = " + transpositionCount);
+                output1.write("Transposition Sort," + numLines + ",," + transpositionCount + "\n");
+                output2.write(transpositionList.toString());
             }
+            //sortAlg = "heap";
             else if (sortAlg.equals("heap")) {
                 //Collections.sort(heapList, Collections.reverseOrder());
-                Collections.sort(heapList);
+                Collections.shuffle(heapList);
                 start = System.nanoTime();
                 heapSort(heapList, 0, numLines);
                 time = System.nanoTime();
-                System.out.println("Heap Sort: Number of Lines=" + numLines + ", Time(ns)=" + (time - start));
+                System.out.println("Heap Sort: Number of Lines = " + numLines + ", Time = " + (time - start));
                 //printList(heapList);
-                out.write("Heap Sort," + numLines + "," + (time - start) + ",\n");
-                out2.write(heapList.toString());
+                output1.write("Heap Sort," + numLines + "," + (time - start) + ",\n");
+                output2.write(heapList.toString());
             }
+            //sortAlg = "merge";
             else if (sortAlg.equals("merge")) {
                 //Collections.sort(mergeList, Collections.reverseOrder());
-                Collections.sort(mergeList);
+                Collections.shuffle(mergeList);
                 start = System.nanoTime();
                 mergeSort(mergeList, 0, numLines);
                 time = System.nanoTime();
-                System.out.println("Merge Sort: Number of Lines=" + numLines + ", Time(ns)=" + (time - start));
+                System.out.println("Merge Sort: Number of Lines = " + numLines + ", Time = " + (time - start));
                 //printList(mergeList);
-                out.write("Merge Sort," + numLines + "," + (time - start) + ",\n");
-                out2.write(mergeList.toString());
-            } else {
+                output1.write("Merge Sort," + numLines + "," + (time - start) + ",\n");
+                output2.write(mergeList.toString());
+            }
+            else {
                    System.err.println("Invalid sorting algorithm");
                    System.exit(1);
                }
@@ -486,10 +438,8 @@ public class Proj3 {
            }
 
         finally {
-
-
-            out.close();
-            out2.close();
+            output1.close();
+            output2.close();
         }
     }
 
