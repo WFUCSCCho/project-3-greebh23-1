@@ -80,6 +80,7 @@ public class Proj3 {
     //then recursively sort those sublists
     public static <T extends Comparable> void quickSort(ArrayList<T> a, int left, int right) {
         // Finish Me
+        /*
         //Base case. ArrayList is sorted.
         //Base case
         if (left >= right) {
@@ -92,7 +93,7 @@ public class Proj3 {
         //Recursively sort the low partition and the high partition (start at the index + 1)
         quickSort(a, left, lowEndIndex);
         quickSort(a, lowEndIndex + 1, right);
-
+         */
     }
 
 
