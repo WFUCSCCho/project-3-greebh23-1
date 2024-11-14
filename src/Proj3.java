@@ -320,8 +320,9 @@ public class Proj3 {
             //The first line is ignored.
             inputFileNameScanner.nextLine();
 
-            //Data is stored in the Volcano Arraylist. We iterate over each line of the file.
-            int count = 0; //count keeps track of the line count.
+            //Data is stored in the RemoteWork Arraylist. 
+            //iterate over each line of the file.
+            int count = 0; //keeps track of the line count.
             //Traverse numLines.
             while (count < numLines) {//inputFileNameScanner.hasNext()) {
                 //Scan in the line.
